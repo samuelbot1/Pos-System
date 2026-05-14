@@ -3,6 +3,7 @@
  */
 
 package com.pos.app;
+import com.pos.model.Producto;
 
 /**
  *
@@ -11,6 +12,10 @@ package com.pos.app;
 public class PosSystemm {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        
+        Producto P = new Producto("Samuel" , 200 , 10);
+        
+        System.out.println(P);
+        
     }
 }
