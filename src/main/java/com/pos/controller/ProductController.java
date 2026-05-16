@@ -5,27 +5,54 @@
 package com.pos.controller;
 //Se importa la clase producto del paquete model
 import com.pos.model.Producto;
+//Se importa el repository
+import com.pos.repository.ProductRepository;
 //Se importa el servicio donde se encuentran las validaciones de los productos
 import com.pos.service.ProductService;
 
+import java.util.ArrayList;
 public class ProductController {
     private ProductService service;
-
+    
+    private ProductRepository repository;
     //Constructor con su respectivo parametro
-    public ProductController(ProductService service) {
+
+    public ProductController(ProductService service, ProductRepository repository) {
         this.service = service;
+        this.repository = repository;
     }
     
+    //Crear el producto 
     public void createProduct(Producto producto){
         //Dato de tipo boolean para validar producto
         boolean valid = service.validateProduct(producto);
         
         //se verifican resultados a traves de un if/else
         
-        if(valid)
-            System.out.println("Producto valido");
-        
+        if(valid){
+            //Se llama al metodo a traves del objeto para guardar el producto
+            repository.guardarProducto(producto);
+            System.out.println("Producto guardado correctamente.");
+        }
         else
-            System.out.println("Producto invalido");
-    }  
+            System.out.println("Producto invalido.");
+    }
+    
+    //Metodo para listar productos
+    
+    public void listProducts(){
+        //Se obtienen los productos desde el repository
+        
+        ArrayList<Producto> productos =repository.listarProductos();
+        
+        //Se recorre la lista a traves de un for each
+        
+        for(Producto producto: productos)
+            System.out.println(producto);
+    }
+    
+    //Eliminar producto
+    public void deleteProduct(int id){
+        repository.eliminarProducto(id);
+    }
 }
