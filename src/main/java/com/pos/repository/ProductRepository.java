@@ -51,31 +51,31 @@ public class ProductRepository {
     }
    }
    
-    public void eliminarProductos(Producto producto){
-    
-   
-    
+public void eliminarProducto(int id) {
+
     try {
-        
-    
-    Connection connection = 
-            DatabaseConfig.getConnection();
-    
-    
-    String sql =
-            "DELETE INTO productos(id,nombre,precio,stock) WHERE id = ?";
-    
-    PreparedStatement statement =
-            connection.prepareStatement(sql);
-            statement.setInt(1,id);
-    
-    
-    
-    } catch(Exception e){}
-    
-    
-    
+
+        Connection connection =
+                DatabaseConfig.getConnection();
+
+        String sql =
+                "DELETE FROM productos WHERE id = ?";
+
+        PreparedStatement statement =
+                connection.prepareStatement(sql);
+
+        statement.setInt(1, id);
+
+        statement.executeUpdate();
+
+        System.out.println("Producto eliminado");
+
+    } catch (Exception e) {
+
+        System.out.println("Error al eliminar producto");
+        e.printStackTrace();
     }
+}
    
    
    
