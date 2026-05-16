@@ -9,5 +9,5 @@ package com.pos.service;
  * @author pc
  */
 public class ProductService {
-    
+
 }
