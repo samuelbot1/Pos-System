@@ -76,7 +76,8 @@ public void eliminarProducto(int id) {
         e.printStackTrace();
     }
 }
-   
+ 
+
    
    
 }
