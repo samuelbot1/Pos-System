@@ -6,9 +6,11 @@ package com.pos.repository;
 
 import com.pos.config.DatabaseConfig;
 import com.pos.model.Producto;
-
+import java.util.ArrayList;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
 
 
 /**
@@ -77,7 +79,47 @@ public void eliminarProducto(int id) {
     }
 }
  
+public ArrayList<Producto> listarProductos(){
+    
+    ArrayList<Producto> listaProductos = new ArrayList<>();
 
+try{
+    
+    
+    Connection connection = 
+            DatabaseConfig.getConnection();
+    
+    String sql =
+
+               "SELECT * FROM productos";
+    
+    PreparedStatement statement =
+                connection.prepareStatement(sql);
+    
+    ResultSet rs = statement.executeQuery();
+    
+    
+    while(rs.next()){
+        
+        Producto producto = new Producto();
+        
+        producto.setId(rs.getInt("id"));
+        producto.setNombre(rs.getString("nombre"));
+        producto.setPrecio(rs.getDouble("precio"));
+        producto.setStock(rs.getInt("stock"));
+        
+        listaProductos.add(producto);
+        
+    }
+    
+    
+}catch (Exception e){
+
+    System.out.println("Error al listar productos");
+    e.printStackTrace();
+}
+return listaProductos;
+} 
    
    
 }
