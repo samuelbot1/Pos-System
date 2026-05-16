@@ -29,7 +29,7 @@ public class ProductRepository {
         //Genero la consulta a el sql
         
         String sql =
-                "INSERT INTO productos(,nombre, precio, stock) VALUES (?, ?, ?, ?)";
+                "INSERT INTO productos(id,nombre, precio, stock) VALUES (?, ?, ?, ?)";
 
         
         //Genero la conexion con el sql y agrego el producto
@@ -37,11 +37,11 @@ public class ProductRepository {
         PreparedStatement statement =
                 connection.prepareStatement(sql);
 
-       
+        statement.setInt(1,producto.getId());
         
-        statement.setString(1, producto.getNombre());
-        statement.setDouble(2, producto.getPrecio());
-        statement.setInt(3, producto.getStock());
+        statement.setString(2, producto.getNombre());
+        statement.setDouble(3, producto.getPrecio());
+        statement.setInt(4, producto.getStock());
 
         statement.executeUpdate();
 
@@ -122,45 +122,4 @@ return listaProductos;
 } 
    
    
-public Producto buscarPorId(int id) {
-
-    Producto producto = null;
-
-    try {
-
-        Connection connection =
-                DatabaseConfig.getConnection();
-
-        String sql =
-                "SELECT * FROM productos WHERE id = ?";
-
-        PreparedStatement statement =
-                connection.prepareStatement(sql);
-
-        statement.setInt(1, id);
-
-        ResultSet rs =
-                statement.executeQuery();
-
-        if (rs.next()) {
-
-            producto = new Producto();
-
-            producto.setId(rs.getInt("id"));
-            producto.setNombre(rs.getString("nombre"));
-            producto.setPrecio(rs.getDouble("precio"));
-            producto.setStock(rs.getInt("stock"));
-        }
-
-    } catch (Exception e) {
-
-        System.out.println("Error al buscar producto por id");
-        e.printStackTrace();
-    }
-
-    return producto;
-}
-
-
-
 }
