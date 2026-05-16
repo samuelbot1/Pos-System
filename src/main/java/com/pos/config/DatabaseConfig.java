@@ -41,16 +41,12 @@ public class DatabaseConfig {
         } catch (ClassNotFoundException e) {
 
             System.out.println("No se encontro el driver de MySQL. Revisa la dependencia en pom.xml");
-            e.printStackTrace();
-
-            return null;
+            throw new RuntimeException(e);
 
         } catch (SQLException e) {
 
             System.out.println("Error de conexion a MySQL");
-            e.printStackTrace();
-
-            return null;
+            throw new RuntimeException(e);
         }
     }
 }
