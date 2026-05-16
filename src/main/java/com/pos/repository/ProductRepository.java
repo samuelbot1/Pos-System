@@ -121,5 +121,39 @@ try{
 return listaProductos;
 } 
    
+public Producto buscarPorId(int id) {
+
+    Producto producto = null;
+
+    String sql = "SELECT * FROM productos WHERE id = ?";
+
+    try (
+            Connection connection = DatabaseConfig.getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql)
+    ) {
+
+        statement.setInt(1, id);
+
+        ResultSet rs = statement.executeQuery();
+
+        if (rs.next()) {
+
+            producto = new Producto();
+
+            producto.setId(rs.getInt("id"));
+            producto.setNombre(rs.getString("nombre"));
+            producto.setPrecio(rs.getDouble("precio"));
+            producto.setStock(rs.getInt("stock"));
+        }
+
+    } catch (Exception e) {
+
+        System.out.println("Error al buscar producto por id");
+        e.printStackTrace();
+    }
+
+    return producto;
+}
+
    
 }
