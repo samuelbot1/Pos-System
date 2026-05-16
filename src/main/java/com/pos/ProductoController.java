@@ -10,5 +10,7 @@ package com.pos;
  * @author pc
  */
 public class ProductoController {
-    
+    public static void main(String[] args) {
+        System.out.println("Hola");
+    }
 }
