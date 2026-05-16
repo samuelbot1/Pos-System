@@ -9,21 +9,30 @@ package com.pos.model;
  * @author samuel Polo
  */
 public class Producto {
-    
+    private int id;
     private String nombre;
     private double precio;
     private int stock;
 
     public Producto (){}
 
-    public Producto (String nombre, double precio , int stock){
+    public Producto (int id,String nombre, double precio , int stock){
+        this.id = id;
         this.nombre = nombre;
         this.precio = precio;
-    this.stock = stock;
+        this.stock = stock;
 }
     
-/**  Getter y Setter de las clases producto */
+/**  Getter y Setter de las clases producto **/
 
+    public int getId(){
+        return id;
+    }
+    
+    public void setId(){
+        this.id = id;
+    }
+    
     public String getNombre() {
 
         return nombre;  

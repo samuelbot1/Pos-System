@@ -13,7 +13,7 @@ public class PosSystemm {
 
     public static void main(String[] args) {
         
-        Producto P = new Producto("Samuel" , 200 , 10);
+        Producto P = new Producto(123232, "Samuel" , 200 , 10);
         
         System.out.println(P);
         
