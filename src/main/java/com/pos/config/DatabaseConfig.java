@@ -38,7 +38,7 @@ public class DatabaseConfig {
 
         } catch (SQLException e) {
 
-            System.out.println("Error de conexion");
+            System.out.println("Error de conexion tonto");
             e.printStackTrace();
 
             return null;
