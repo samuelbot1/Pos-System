@@ -28,6 +28,8 @@ public class DatabaseConfig {
 
         try {
 
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
             // Intentar conectarse a MySQL
             Connection connection =
                     DriverManager.getConnection(URL, USER, PASSWORD);
@@ -36,9 +38,16 @@ public class DatabaseConfig {
 
             return connection;
 
+        } catch (ClassNotFoundException e) {
+
+            System.out.println("No se encontro el driver de MySQL. Revisa la dependencia en pom.xml");
+            e.printStackTrace();
+
+            return null;
+
         } catch (SQLException e) {
 
-            System.out.println("Error de conexion tonto");
+            System.out.println("Error de conexion a MySQL");
             e.printStackTrace();
 
             return null;

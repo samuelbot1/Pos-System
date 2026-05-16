@@ -29,7 +29,7 @@ public class ProductRepository {
         //Genero la consulta a el sql
         
         String sql =
-                "INSERT INTO productos(id,nombre, precio, stock) VALUES (?, ?, ?, ?)";
+                "INSERT INTO productos(nombre, precio, stock) VALUES (?, ?, ?)";
 
         
         //Genero la conexion con el sql y agrego el producto
@@ -37,11 +37,9 @@ public class ProductRepository {
         PreparedStatement statement =
                 connection.prepareStatement(sql);
 
-        statement.setInt(1,producto.getId());
-        
-        statement.setString(2, producto.getNombre());
-        statement.setDouble(3, producto.getPrecio());
-        statement.setInt(4, producto.getStock());
+        statement.setString(1, producto.getNombre());
+        statement.setDouble(2, producto.getPrecio());
+        statement.setInt(3, producto.getStock());
 
         statement.executeUpdate();
 
@@ -49,7 +47,8 @@ public class ProductRepository {
 
     } catch (Exception e) {
 
-        System.out.println("Error");
+        System.out.println("Error al guardar producto");
+        e.printStackTrace();
     }
    }
    
