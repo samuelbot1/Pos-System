@@ -109,7 +109,7 @@ public class ProductView extends JFrame {
             producto.setPrecio(precio);
             producto.setStock(stock);
 
-            
+            boolean saved = controller.createProduct(producto);
 
             if (saved) {
 
