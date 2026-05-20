@@ -79,18 +79,131 @@ public class ProductView extends JFrame {
         model.addColumn("Nombre");
         model.addColumn("Precio");
         model.addColumn("Stock");
-            boolean saved = controller.createProduct(producto);
 
-if (saved) {
+        table = new JTable(model);
 
-    JOptionPane.showMessageDialog(this,
-            "Producto guardado correctamente");
+        JScrollPane scrollPane = new JScrollPane(table);
 
-    clearFields();
-    loadProducts();
+        panel.add(scrollPane, BorderLayout.CENTER);
 
-} else {
+        add(panel);
 
-    JOptionPane.showMessageDialog(this,
-            "Datos invalidos");
+        btnGuardar.addActionListener(e -> saveProduct());
+
+        btnEliminar.addActionListener(e -> deleteProduct());
+
+        btnBuscar.addActionListener(e -> searchProduct());
+    }
+
+    private void saveProduct() {
+
+        try {
+
+            String nombre = txtNombre.getText();
+            double precio = Double.parseDouble(txtPrecio.getText());
+            int stock = Integer.parseInt(txtStock.getText());
+
+            Producto producto = new Producto();
+
+            producto.setNombre(nombre);
+            producto.setPrecio(precio);
+            producto.setStock(stock);
+
+            
+
+            if (saved) {
+
+                JOptionPane.showMessageDialog(this,
+                        "Producto guardado correctamente");
+
+                clearFields();
+                loadProducts();
+
+            } else {
+
+                JOptionPane.showMessageDialog(this,
+                        "Datos invalidos");
+            }
+
+        } catch (Exception e) {
+
+            JOptionPane.showMessageDialog(this,
+                    "Error en los datos");
+        }
+    }
+
+    private void loadProducts() {
+
+        model.setRowCount(0);
+
+        ArrayList<Producto> productos = controller.getProducts();
+
+        for (Producto producto : productos) {
+
+            model.addRow(new Object[]{
+                    producto.getId(),
+                    producto.getNombre(),
+                    producto.getPrecio(),
+                    producto.getStock()
+            });
+        }
+    }
+
+    private void deleteProduct() {
+
+        int row = table.getSelectedRow();
+
+        if (row >= 0) {
+
+            int id = (int) model.getValueAt(row, 0);
+
+            controller.deleteProduct(id);
+
+            JOptionPane.showMessageDialog(this,
+                    "Producto eliminado");
+
+            loadProducts();
+
+        } else {
+
+            JOptionPane.showMessageDialog(this,
+                    "Seleccione un producto");
+        }
+    }
+
+    private void searchProduct() {
+
+        try {
+
+            int id = Integer.parseInt(txtBuscar.getText());
+
+            Producto producto = controller.searchById(id);
+
+            if (producto != null) {
+
+                JOptionPane.showMessageDialog(this,
+                        "Producto encontrado:\n\n" +
+                                "Nombre: " + producto.getNombre() +
+                                "\nPrecio: " + producto.getPrecio() +
+                                "\nStock: " + producto.getStock());
+
+            } else {
+
+                JOptionPane.showMessageDialog(this,
+                        "Producto no encontrado");
+            }
+
+        } catch (Exception e) {
+
+            JOptionPane.showMessageDialog(this,
+                    "Ingrese un ID valido");
+        }
+    }
+
+    private void clearFields() {
+
+        txtNombre.setText("");
+        txtPrecio.setText("");
+        txtStock.setText("");
+    }
 }

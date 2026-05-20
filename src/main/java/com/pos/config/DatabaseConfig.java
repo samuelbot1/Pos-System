@@ -15,7 +15,7 @@ public class DatabaseConfig {
 
     // URL de conexión hacia MySQL
     private static final String URL =
-            "jdbc:mysql://localhost:3306/pos_system";
+            "jdbc:mysql://localhost:3306/pos_system?allowPublicKeyRetrieval=true&useSSL=false";
 
     // Usuario de MySQL
     private static final String USER = "root";
