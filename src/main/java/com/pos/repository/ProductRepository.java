@@ -78,47 +78,39 @@ public void eliminarProducto(int id) {
     }
 }
  
-public ArrayList<Producto> listarProductos(){
-    
-    ArrayList<Producto> listaProductos = new ArrayList<>();
+public ArrayList<Producto> listarProductos() {
 
-try{
-    
-    
-    Connection connection = 
-            DatabaseConfig.getConnection();
-    
-    String sql =
+    ArrayList<Producto> productos = new ArrayList<>();
 
-               "SELECT * FROM productos";
-    
-    PreparedStatement statement =
-                connection.prepareStatement(sql);
-    
-    ResultSet rs = statement.executeQuery();
-    
-    
-    while(rs.next()){
-        
-        Producto producto = new Producto();
-        
-        producto.setId(rs.getInt("id"));
-        producto.setNombre(rs.getString("nombre"));
-        producto.setPrecio(rs.getDouble("precio"));
-        producto.setStock(rs.getInt("stock"));
-        
-        listaProductos.add(producto);
-        
+    String sql = "SELECT * FROM productos";
+
+    try (
+            Connection connection = DatabaseConfig.getConnection();
+            PreparedStatement statement =
+                    connection.prepareStatement(sql);
+            ResultSet rs = statement.executeQuery()
+    ) {
+
+        while (rs.next()) {
+
+            Producto producto = new Producto();
+
+            producto.setId(rs.getInt("id"));
+            producto.setNombre(rs.getString("nombre"));
+            producto.setPrecio(rs.getDouble("precio"));
+            producto.setStock(rs.getInt("stock"));
+
+            productos.add(producto);
+        }
+
+    } catch (Exception e) {
+        e.printStackTrace();
     }
-    
-    
-}catch (Exception e){
 
-    System.out.println("Error al listar productos");
-    e.printStackTrace();
+    return productos;
 }
-return listaProductos;
-} 
+    
+   
    
 public Producto buscarPorId(int id) {
 

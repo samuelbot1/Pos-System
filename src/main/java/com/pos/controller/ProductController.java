@@ -43,26 +43,25 @@ public class ProductController {
     //Metodo para listar productos
     
     public void listProducts(){
-        //Se obtienen los productos desde el repository
-        
-        ArrayList<Producto> productos =repository.listarProductos();
-        
-        //Se recorre la lista a traves de un for each
-        
-        for(Producto producto: productos)
-            System.out.println(producto);
-    }
+
+    ArrayList<Producto> productos =repository.listarProductos();
+
+    for(Producto producto: productos)
+        System.out.println(producto);
+}
     
     //Eliminar producto
     public void deleteProduct(int id){
         repository.eliminarProducto(id);
     }
 
-    public Producto searchById(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+public Producto searchById(int id) {
+    return repository.buscarPorId(id);
+}
 
-    public ArrayList<Producto> getProducts() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+public ArrayList<Producto> getProducts() {
+    return repository.listarProductos();
+} 
+    
+    
 }
